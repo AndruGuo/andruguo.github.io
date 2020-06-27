@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Windows Server 服务器配置自带时间同步工具</title>
+      <link href="/%E6%8A%80%E6%9C%AF/2020062702/"/>
+      <url>/%E6%8A%80%E6%9C%AF/2020062702/</url>
+      
+        <content type="html"><![CDATA[<p>Windows Server 服务器配置自带时间同步工具，设置步骤如下。</p><p>1.键盘 Windows+R 打开运行窗口，在运行窗口中输入并打开 gpedit.msc（本地组策略编辑器）</p><img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-0.png" class="" title="step-1"><a id="more"></a><p>2.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“配置Window NTP客户端”，选择编辑。</p><ul><li>a.选择“已启用”。</li><li>b.在Ntp Server对应栏位输入时间同步服务器的地址。</li><li>c.Tpye栏位选择NTP。<ul><li>类型说明:<ul><li>NoSync。 时间服务不与其他源同步。</li><li>NTP. 时间服务从NtpServer中指定的服务器同步。 注册表项。</li><li>NT5DS。 时间服务从域层次结构进行同步。</li><li>AllSync。 时间服务使用所有可用的同步机制。</li><li>域成员的默认值为NT5DS。 独立客户端和服务器上的默认值为NTP。</li></ul></li></ul></li><li>d.SpecialPollInterval栏位输入需要同步的时间周期，单位：秒，如：每10分钟同步一次，输入600。</li><li>e.确定。</li></ul><p>按下图设置参数设置即可：time.pool.aliyun.com time1.cloud.tencent.com（如此地址不能用请谷歌或百度搜索配置其他时间同步地址）ntp.ntsc.ac.cn （国家对时中心地址）</p><img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-1.png" class="" title="step-2"><p>3.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“启用Window NTP客户端”，选择编辑。</p><ul><li>a.选择“已启用”。</li></ul><p>4.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“启用Window NTP服务端”，选择编辑。</p><ul><li>a.选择“已禁用”（当前服务器需要提供时间服务可以选择启用）</li></ul><p>5.时间和日期属性中，填入时间同步服务器地址，方便必要时进行手动同步。<br>点击立即更新 可以检查当前地址是否可以同步正常</p><img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-2.png" class="" title="step-3"><p>6.打开服务找WindowsTime服务设置成自动启动，设置好后重启下服务。</p><img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-3.png" class="" title="step-4">]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Tech </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>谈博客风格</title>
+      <link href="/%E6%9D%82%E8%B0%88/2020062701/"/>
+      <url>/%E6%9D%82%E8%B0%88/2020062701/</url>
+      
+        <content type="html"><![CDATA[<p>删繁就简，少既是多，更多的关注文字内容!</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Life </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第一篇文章</title>
       <link href="/%E6%9D%82%E8%B0%88/first-post/"/>
       <url>/%E6%9D%82%E8%B0%88/first-post/</url>
@@ -20,7 +70,7 @@
       
         <tags>
             
-            <tag> Next </tag>
+            <tag> Life </tag>
             
         </tags>
       
@@ -45,7 +95,7 @@
       
         <tags>
             
-            <tag> Next </tag>
+            <tag> Tech </tag>
             
         </tags>
       
