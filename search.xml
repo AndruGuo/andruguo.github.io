@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>谈博客风格</title>
+    <url>/2020/06/27/2020062701/</url>
+    <content><![CDATA[<p>删繁就简，少既是多，更多的关注文字内容!</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>Life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows Server 服务器自带时间同步工具配置方法</title>
+    <url>/2020/06/27/2020062702/</url>
+    <content><![CDATA[<p>Windows Server 服务器自带时间同步工具配置方法，设置步骤如下:</p>
+<p>1.键盘 Windows+R 打开运行窗口，在运行窗口中输入并打开 gpedit.msc（本地组策略编辑器）</p>
+<img src="/2020/06/27/2020062702/image2020062702-0.png" class="" title="step-1"><span id="more"></span>
+
+<p>2.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows 时间服务–&gt;时间提供程序–&gt;右单击“配置 Window NTP 客户端”，选择编辑。</p>
+<ul>
+<li>a. 选择“已启用”。</li>
+<li>b. 在Ntp Server对应栏位输入时间同步服务器的地址。</li>
+<li>c. Type栏位选择NTP。<ul>
+<li>类型说明:</li>
+</ul>
+<ol>
+<li>NoSync。 时间服务不与其他源同步。</li>
+<li>NTP. 时间服务从NtpServer中指定的服务器同步。 注册表项。</li>
+<li>NT5DS。 时间服务从域层次结构进行同步。</li>
+<li>AllSync。 时间服务使用所有可用的同步机制。</li>
+<li>域成员的默认值为NT5DS。 独立客户端和服务器上的默认值为NTP。</li>
+</ol>
+</li>
+<li>d. SpecialPollInterval栏位输入需要同步的时间周期，单位：秒，如：每10分钟同步一次，输入600。</li>
+<li>e. 确定。</li>
+</ul>
+<p>按下图设置参数设置即可：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">time.pool.aliyun.com           # 阿里云 NTP</span><br><span class="line">time1.cloud.tencent.com        # 腾讯云 NTP</span><br><span class="line">ntp.ntsc.ac.cn                 # 国家对时中心地址</span><br></pre></td></tr></table></figure>
+
+<p>（如此地址不能用请谷歌或百度搜索配置其他时间同步地址）</p>
+<img src="/2020/06/27/2020062702/image2020062702-1.png" class="" title="step-2">
+
+<p>3.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“启用Window NTP客户端”，选择编辑。</p>
+<ul>
+<li>选择“已启用”。</li>
+</ul>
+<p>4.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“启用Window NTP服务端”，选择编辑。</p>
+<ul>
+<li>选择“已禁用”（当前服务器需要提供时间服务可以选择启用）</li>
+</ul>
+<p>5.时间和日期属性中，填入时间同步服务器地址，方便必要时进行手动同步。<br>点击立即更新 可以检查当前地址是否可以同步正常</p>
+<img src="/2020/06/27/2020062702/image2020062702-2.png" class="" title="step-3">
+
+<p>6.打开服务找WindowsTime服务设置成自动启动，设置好后重启下服务。</p>
+<img src="/2020/06/27/2020062702/image2020062702-3.png" class="" title="step-4">
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tech</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机硬盘动态扩容</title>
+    <url>/2021/03/06/2021030601/</url>
+    <content><![CDATA[<p>机房扩容好硬盘后，进入机器开始操作命令扩容，具体步骤如下：</p>
+<h2 id="1-重新扫描-SCSI-设备"><a href="#1-重新扫描-SCSI-设备" class="headerlink" title="1. 重新扫描 SCSI 设备"></a>1. 重新扫描 SCSI 设备</h2><p>列出您的 SCSI 设备的名称：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@bs3-mangodb-3 ~]# <span class="built_in">ls</span> /sys/class/scsi_device/</span><br></pre></td></tr></table></figure>
+
+<img src="/2021/03/06/2021030601/image2021030601-1.png" class="" title="step-1">
+
+<p>根据本机器展示的 SCSI 设备名称，重新扫描 SCSI：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@bs3-mangodb-3 ~]# <span class="built_in">echo</span> 1 &gt; /sys/class/scsi_device/0:0:0:0/device/rescan</span><br><span class="line">[root@bs3-mangodb-3 ~]# <span class="built_in">echo</span> 1 &gt; /sys/class/scsi_device/3:0:0:0/device/rescan</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="2-新建分区"><a href="#2-新建分区" class="headerlink" title="2. 新建分区"></a>2. 新建分区</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@bs3-mangodb-3 ~]# fdisk /dev/sda</span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line">Changes will remain <span class="keyword">in</span> memory only, <span class="keyword">until</span> you decide to write them.</span><br><span class="line">Be careful before using the write <span class="built_in">command</span>.</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p   <span class="comment"># 查看已分区数量，有两个 /dev/sda1 /dev/sda2</span></span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 644.2 GB, 644245094400 bytes, 1258291200 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x000b61c1</span><br><span class="line"></span><br><span class="line">Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sda1   *        2048     2099199     1048576   83  Linux</span><br><span class="line">/dev/sda2         2099200  1048575999   523238400   8e  Linux LVM</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n   <span class="comment"># 新增加一个分区</span></span><br><span class="line">Partition <span class="built_in">type</span>:</span><br><span class="line">p   primary (2 primary, 0 extended, 2 free)</span><br><span class="line">e   extended</span><br><span class="line">Select (default p): p   <span class="comment"># 分区类型选择为主分区</span></span><br><span class="line">Partition number (3,4, default 3): 3   <span class="comment"># 分区号选 3</span></span><br><span class="line">First sector (1048576000-1258291199, default 1048576000): Enter   <span class="comment"># 回车，选择默认起始扇区</span></span><br><span class="line">Using default value 1048576000</span><br><span class="line">Last sector, +sectors or +size&#123;K,M,G&#125; (1048576000-1258291199, default 1258291199): Enter   <span class="comment"># 回车，选择默认结束扇区</span></span><br><span class="line">Using default value 1258291199</span><br><span class="line">Partition 3 of <span class="built_in">type</span> Linux and of size 100 GiB is <span class="built_in">set</span></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): t   <span class="comment"># t 修改分区类型</span></span><br><span class="line">Partition number (1-3, default 3): 3   <span class="comment"># 选分区 3</span></span><br><span class="line">Hex code (<span class="built_in">type</span> L to list all codes): 8e   <span class="comment"># 修改为 LVM（8e 就是上面 p 选项查看到的 id），LVM 是 Logical Volume Manager（逻辑卷管理）</span></span><br><span class="line">Changed <span class="built_in">type</span> of partition <span class="string">&#x27;Linux&#x27;</span> to <span class="string">&#x27;Linux LVM&#x27;</span></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w   <span class="comment"># 保存</span></span><br><span class="line">The partition table has been altered!</span><br><span class="line"></span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">WARNING: Re-reading the partition table failed with error 16: Device or resource busy.</span><br><span class="line">The kernel still uses the old table. The new table will be used at</span><br><span class="line">the next reboot or after you run partprobe(8) or kpartx(8) Syncing disks.</span><br><span class="line"></span><br><span class="line">[root@bs3-mangodb-3 ~]# partprobe   <span class="comment"># 重新加载分区表</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-对新增加的硬盘进行格式化"><a href="#3-对新增加的硬盘进行格式化" class="headerlink" title="3. 对新增加的硬盘进行格式化"></a>3. 对新增加的硬盘进行格式化</h2><p>重新加载分区表后格式化分区：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkfs.xfs /dev/sda3</span><br></pre></td></tr></table></figure>
+
+<p>（sda3 是刚才分的区。注意：格式化成什么文件系统，要先使用 <code>df -Th</code> 命令查看当前 Linux 系统使用的文件系统，我这边看到的打印内容是：）</p>
+<img src="/2021/03/06/2021030601/image2021030601-2.png" class="" title="step-2">
+
+<h2 id="4-添加新-LVM-到已有的-LVM-组，实现扩容"><a href="#4-添加新-LVM-到已有的-LVM-组，实现扩容" class="headerlink" title="4. 添加新 LVM 到已有的 LVM 组，实现扩容"></a>4. 添加新 LVM 到已有的 LVM 组，实现扩容</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@bs3-mangodb-3 ~]# lvm   <span class="comment"># 进入 lvm 管理</span></span><br><span class="line">lvm&gt; pvcreate /dev/sda3   <span class="comment"># 初始化刚才的分区</span></span><br><span class="line">WARNING: xfs signature detected on /dev/sda3 at offset 0. Wipe it? [y/n]: y   <span class="comment"># 输入 y 确认</span></span><br><span class="line">  Wiping xfs signature on /dev/sda3.</span><br><span class="line">  Physical volume <span class="string">&quot;/dev/sda3&quot;</span> successfully created.</span><br><span class="line"></span><br><span class="line">lvm&gt; vgdisplay   <span class="comment"># 查看卷组（Volume group）名称</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2021/03/06/2021030601/image2021030601-3.png" class="" title="step-3">
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lvm&gt; vgextend centos /dev/sda3   <span class="comment"># 将初始化过的分区加入到虚拟卷组 centos</span></span><br><span class="line">lvm&gt; pvdisplay   <span class="comment"># 查看物理卷（Physical Volume）情况，可以看到新加的 100G 物理卷</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2021/03/06/2021030601/image2021030601-4.png" class="" title="step-4">
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lvm&gt; lvdisplay   <span class="comment"># 查看逻辑卷（Logical volume）信息</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2021/03/06/2021030601/image2021030601-5.png" class="" title="step-5">
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lvm&gt; lvextend -L +99.99G /dev/centos/root   <span class="comment"># 增加物理卷到逻辑卷根目录</span></span><br></pre></td></tr></table></figure>
+
+<p>（从上面逻辑卷信息的打印信息中可以看到逻辑卷根目录是 <code>/dev/centos/root</code>。扩容了 100GB，这里只增加 99.99GB，因为显示的 100GB 不等于完整的 100GB，存在换算问题；当填写 100GB 时会提示空间不足无法扩容。）</p>
+<img src="/2021/03/06/2021030601/image2021030601-6.png" class="" title="step-6">
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lvm&gt; quit   <span class="comment"># 操作完逻辑卷扩容后退出 lvm</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-文件系统的真正扩容"><a href="#5-文件系统的真正扩容" class="headerlink" title="5. 文件系统的真正扩容"></a>5. 文件系统的真正扩容</h2><p>以上只是卷扩容了，下面是文件系统的真正扩容，输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@bs3-mangodb-3 ~]# xfs_growfs /dev/mapper/centos-root</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-结果查看"><a href="#6-结果查看" class="headerlink" title="6. 结果查看"></a>6. 结果查看</h2><p>扩容前后对比：</p>
+<img src="/2021/03/06/2021030601/image2021030601-7.png" class="" title="step-7">
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tech</tag>
+      </tags>
+  </entry>
+</search>
