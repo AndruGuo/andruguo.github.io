@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>谈博客风格</title>
+    <url>/%E6%9D%82%E8%B0%88/2020062701/</url>
+    <content><![CDATA[<p>删繁就简，少既是多，更多的关注文字内容!</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>Life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows Server 服务器自带时间同步工具配置方法</title>
+    <url>/%E6%8A%80%E6%9C%AF/2020062702/</url>
+    <content><![CDATA[<p>Windows Server 服务器自带时间同步工具配置方法，设置步骤如下:</p>
+<p>1.键盘 Windows+R 打开运行窗口，在运行窗口中输入并打开 gpedit.msc（本地组策略编辑器）</p>
+<img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-0.png" class="" title="step-1"><span id="more"></span>
+
+<p>2.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows 时间服务–&gt;时间提供程序–&gt;右单击“配置 Window NTP 客户端”，选择编辑。</p>
+<ul>
+<li>a. 选择“已启用”。</li>
+<li>b. 在Ntp Server对应栏位输入时间同步服务器的地址。</li>
+<li>c. Type栏位选择NTP。<ul>
+<li>类型说明:<ol>
+<li>NoSync。 时间服务不与其他源同步。</li>
+<li>NTP. 时间服务从NtpServer中指定的服务器同步。 注册表项。</li>
+<li>NT5DS。 时间服务从域层次结构进行同步。</li>
+<li>AllSync。 时间服务使用所有可用的同步机制。</li>
+<li>域成员的默认值为NT5DS。 独立客户端和服务器上的默认值为NTP。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>d. SpecialPollInterval栏位输入需要同步的时间周期，单位：秒，如：每10分钟同步一次，输入600。</li>
+<li>e. 确定。</li>
+</ul>
+<p>按下图设置参数设置即可：time.pool.aliyun.com time1.cloud.tencent.com（如此地址不能用请谷歌或百度搜索配置其他时间同步地址）ntp.ntsc.ac.cn （国家对时中心地址）</p>
+<img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-1.webp" class="" title="step-2">
+
+<p>3.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“启用Window NTP客户端”，选择编辑。</p>
+<ul>
+<li>选择“已启用”。</li>
+</ul>
+<p>4.计算机配置–&gt;管理模板–&gt;系统–&gt;Windows时间服务–&gt;时间提供程序–&gt;右单击“启用Window NTP服务端”，选择编辑。</p>
+<ul>
+<li>选择“已禁用”（当前服务器需要提供时间服务可以选择启用）</li>
+</ul>
+<p>5.时间和日期属性中，填入时间同步服务器地址，方便必要时进行手动同步。<br>点击立即更新 可以检查当前地址是否可以同步正常</p>
+<img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-2.png" class="" title="step-3">
+
+<p>6.打开服务找WindowsTime服务设置成自动启动，设置好后重启下服务。</p>
+<img src="/%E6%8A%80%E6%9C%AF/2020062702/image2020062702-3.webp" class="" title="step-4">
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tech</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机硬盘动态扩容</title>
+    <url>/%E6%8A%80%E6%9C%AF/2021030601/</url>
+    <content><![CDATA[<p>机房扩容好硬盘后,进入机器开始操作命令扩容,具体步骤如下：</p>
+<ol>
+<li><p>列出您的 SCSI 设备的名称，重新扫描SCSI：<br>[root@bs3-mangodb-3 ~]# ls /sys/class/scsi_device/</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-1.png" class="" title="step-1">
+<p>根据本机器展示的SCSI设备名称,重新扫描SCSI<br>[root@bs3-mangodb-3 ~]# echo 1 &gt; /sys/class/scsi_device/0:0:0:0/device/rescan<br>[root@bs3-mangodb-3 ~]# echo 1 &gt; /sys/class/scsi_device/3:0:0:0/device/rescan</p>
+<span id="more"></span> 
+</li>
+<li><p>新建分区<br>[root@bs3-mangodb-3 ~]# fdisk /dev/sda<br>Welcome to fdisk (util-linux 2.23.2).<br>Changes will remain in memory only, until you decide to write them.<br>Be careful before using the write command.<br>Command (m for help): p （查看已分区数量 有两个/dev/sda1 /dev/sda2）</p>
+<br>
+Disk /dev/sda: 644.2 GB, 644245094400 bytes, 1258291200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000b61c1
+</br>
+<br>
+Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200  1048575999   523238400   8e  Linux LVM
+</br>
+<br>
+Command (m for help): n （新增加一个分区）
+Partition type:
+p   primary (2 primary, 0 extended, 2 free)
+e   extended
+Select (default p): p  （分区类型选择为主分区）
+Partition number (3,4, default 3): 3 （分区号选3）
+First sector (1048576000-1258291199, default 1048576000): Entre（回车，选择默认起始扇区）
+Using default value 1048576000
+Last sector, +sectors or +size{K,M,G} (1048576000-1258291199, default 1258291199):  Entre（回车，选择默认结束扇区）
+Using default value 1258291199
+Partition 3 of type Linux and of size 100 GiB is set
+</br>
+<br>
+Command (m for help): t （t修改分区类型）
+Partition number (1-3, default 3): 3 （选分区3）
+Hex code (type L to list all codes): 8e （修改为LVM（8es就是上面p选项查看到的id）LVM是 LogicalVolume Manager（逻辑卷管理）
+Changed type of partition 'Linux' to 'Linux LVM'
+</br>
+<br>
+Command (m for help): w （保存）
+The partition table has been altered!
+</br>
+<br>
+Calling ioctl() to re-read partition table.
+</br>
+<br>
+WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8) Syncing disks.
+</br>
+[root@bs3-mangodb-3 ~]# partprobe （重新加载分区表）
+</li>
+<li><p>对新增加的硬盘进行格式化<br>重新加载分区表后格式化分区：mkfs.xfs /dev/sda3  (sda3是刚才分的区，另外注意：格式成什么文件系统要使用df -Th命令先查看你当前linux系统使用的是什么文件系统，我这边看到的打印内容是：</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-2.png" class="" title="step-2">
+</li>
+<li><p>添加新LVM到已有的LVM组，实现扩容<br>[root@bs3-mangodb-3 ~]# lvm  (lvm 进入lvm管理)<br>lvm&gt; pvcreate /dev/sda3 (初始化刚才的分区)<br>WARNING: xfs signature detected on /dev/sda3 at offset 0. Wipe it? [y/n]: y (输入y确认)<br>Wiping xfs signature on /dev/sda3.<br>Physical volume “/dev/sda3” successfully created.<br>lvm&gt; vgdisplay  (查看卷组（Volumegroup）名称)</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-3.png" class="" title="step-3">
+<p>lvm&gt; vgextend centos /dev/sda3  (将初始化过的分区加入到虚拟卷组centos)<br>lvm&gt; pvdisplay （查看物理卷（Physical Volume）情况，可以看到新加的100G物理卷 ）</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-4.png" class="" title="step-4">
+<p>lvm&gt; lvdisplay （查看逻辑卷（Logical volume）信息）</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-5.webp" class="" title="step-5">
+<p>lvm&gt; lvextend -L +99.99G /dev/centos/root （增加物理卷到逻辑卷根目录，从上面逻辑卷信息的打印信息中可以看到逻辑卷根目录是为：/dev/centos/root ）（扩容了100GB 这里只增加了99.99GB.因这个显示的100GB,不等于完整的100GB存在换算问题,当填写100GB时会提示空间不足无法扩容）</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-6.png" class="" title="step-6">
+<p>lvm&gt; quit （操作完逻辑卷扩容后退出lvm）</p>
+</li>
+<li><p>以上只是卷扩容了，下面是文件系统的真正扩容，输入以下命令：<br>[root@bs3-mangodb-3 ~]# xfs_growfs /dev/mapper/centos-root</p>
+</li>
+<li><p>结果查看 扩容前后对比</p>
+<img src="/%E6%8A%80%E6%9C%AF/2021030601/image2021030601-7.webp" class="" title="step-7">
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tech</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>把废旧安卓手机变成专用设备：一台零成本的 AI Passport</title>
+    <url>/%E6%8A%98%E8%85%BE/2026112301/</url>
+    <content><![CDATA[<p>最近刷到了 FoloToy 的 <a href="https://ai-passport.folotoy.cn/">AI Passport</a>——一块 119 元的透明壳「电子身份卡」，ESP32-C3 加一块小彩屏，可以当工牌、跑社区小游戏、甚至用 AI 编程工具给它写玩法。看着很心动，但转念一想：<strong>家里躺着的废旧安卓手机，性能比它强五十倍，这些功能是不是都能用软件复刻？</strong></p>
+<p>答案是：能，而且大部分还能做得更好。</p>
+<span id="more"></span>
+
+<h2 id="AI-Passport-是什么"><a href="#AI-Passport-是什么" class="headerlink" title="AI Passport 是什么"></a>AI Passport 是什么</h2><p>先简单介绍一下这个玩具。它是深圳团队 FoloToy 做的开源可穿戴硬件：透明外壳能看到主板、NFC 线圈和电池，背面直接印着 GitHub 地址。出厂是一张「电子身份卡」——用微信小程序通过蓝牙同步名字、头像、简介和一张全屏图，它就变成一张会亮的工牌。</p>
+<p>真正好玩的在后面：官方有个玩法社区，里面已经积累了一千多个社区作品——数码暴龙机模拟器、网络电台、宝可梦对战、贪吃蛇、服务器监控屏、随身电视……接上 Type-C 一键烧录就能换玩法。官方固件开源，所以还能让 Codex、Claude Code 这类 AI 编程工具给它写新玩法，据说上市三周卖了近万台。</p>
+<p>缺点也很明显：屏幕小字密、非触屏、一次只能装一个玩法（换玩法等于刷机）、外放音质一般。它不跑大模型——所谓 AI，其实是用 AI 写代码刷进去，本体就是一块几十块钱的开发板。</p>
+<h2 id="为什么旧手机能复刻"><a href="#为什么旧手机能复刻" class="headerlink" title="为什么旧手机能复刻"></a>为什么旧手机能复刻</h2><p>把 AI Passport 的功能逐项过一遍，会发现旧安卓手机几乎是全面碾压：</p>
+<table>
+<thead>
+<tr>
+<th>AI Passport 功能</th>
+<th>旧手机方案</th>
+<th>对比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电子身份卡</td>
+<td>全屏「工牌模式」APP</td>
+<td>更强，还能远程改</td>
+</tr>
+<tr>
+<td>NFC 碰一碰</td>
+<td>手机自带 NFC，能传名片链接</td>
+<td>更强</td>
+</tr>
+<tr>
+<td>玩法社区</td>
+<td>自建玩法商店，应用内切换</td>
+<td>平级，不用刷机秒切</td>
+</tr>
+<tr>
+<td>三个按键的小游戏</td>
+<td>虚拟按键 + 像素风游戏</td>
+<td>平级</td>
+</tr>
+<tr>
+<td>小智 AI 对话</td>
+<td>直接调语音 API</td>
+<td>更强</td>
+</tr>
+<tr>
+<td>服务器监控屏</td>
+<td>SSH/API 直连</td>
+<td>更强</td>
+</tr>
+<tr>
+<td>网络电台 / 随身电视</td>
+<td>原生 APP</td>
+<td>碾压级</td>
+</tr>
+<tr>
+<td>待机画面</td>
+<td>竖屏常亮相框 / 时钟</td>
+<td>更强</td>
+</tr>
+</tbody></table>
+<p>手机独占还白送的能力：摄像头、GPS、真电话短信。复刻不了的就两条：50 克的挂脖形态，和几天一充的极端功耗。前者是硬件命，后者对当桌面摆件来说无所谓。</p>
+<h2 id="技术方案"><a href="#技术方案" class="headerlink" title="技术方案"></a>技术方案</h2><p>我选了 Flutter 来写这个「AI Passport 模拟器」，理由：</p>
+<ul>
+<li><strong>像素风 UI 和小游戏是 Canvas 自绘的强项</strong>，复刻那种「设备感」最顺手</li>
+<li>Widget 思维和写网页组件很像，前端经验能平移</li>
+<li><code>flutter build apk</code> 一条命令，放 GitHub Actions 云端编译，没电脑也能迭代</li>
+<li>一个代码库以后能上 iOS / 桌面</li>
+</ul>
+<p>核心的工作量在<strong>玩法系统</strong>：定义一个「玩法包」格式（JSON 描述界面 + 脚本写逻辑），APP 内嵌解释器加载。这样社区玩法包能一键下载切换，AI 也能直接生成玩法包——体验和原版一样，门槛反而更低。</p>
+<h2 id="专用化：让手机变成设备"><a href="#专用化：让手机变成设备" class="headerlink" title="专用化：让手机变成设备"></a>专用化：让手机变成设备</h2><p>光有 APP 还不够「设备」，要做 kiosk（专用机）化，四层从易到难：</p>
+<ol>
+<li><strong>全屏沉浸</strong>：隐藏状态栏导航栏、竖屏锁定、屏幕常亮</li>
+<li><strong>开机直达 APP</strong>：把 APP 注册成桌面（Launcher），监听开机广播——开机直接进 APP，按主页也回 APP</li>
+<li><strong>锁死防误退</strong>：屏幕固定、屏蔽返回键、关锁屏、关所有通知</li>
+<li><strong>系统调优</strong>：关动画缩放、忽略电池优化、深色主题</li>
+</ol>
+<p>关键是这一切<strong>完全可逆</strong>：注册成桌面只是抢了「主页」权限，原厂桌面还在系统里。APP 设置页留一个「回到手机桌面」入口，再藏个连点三下的彩蛋，想变回手机随时可以。</p>
+<p>配套的系统精简也不需要刷机：设置里把预装 APP 逐个「停用」（可逆且干净）、关自动同步、关动画、勿扰常开，三十分钟点完，续航能救回一大截。</p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>原型开工了，流程和之前 iOS 打包一样：代码推 GitHub → Actions 云端出 APK → 手机直接下载安装。等装上真机再写一篇实测。</p>
+<p>至于那块 AI Passport——等我把软件版玩明白了，说不定还是会买一块来对比。毕竟「折腾」这件事，从来不是纯理性的。</p>
+]]></content>
+      <categories>
+        <category>折腾</category>
+      </categories>
+      <tags>
+        <tag>折腾</tag>
+        <tag>安卓</tag>
+        <tag>Flutter</tag>
+        <tag>kiosk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Passport Device 安装指引：旧手机秒变专用设备</title>
+    <url>/%E6%8A%80%E6%9C%AF/2026112401/</url>
+    <content><![CDATA[<p>这是《把废旧安卓手机变成专用设备》一文的配套安装指引。APK 下载与安装步骤全在下面，AI 助手可按本文档逐步执行。</p>
+<span id="more"></span>
+
+<h2 id="下载-APK"><a href="#下载-APK" class="headerlink" title="下载 APK"></a>下载 APK</h2><p><strong>下载地址</strong>：<a href="https://app.andru.de5.net/dl/passport.apk">https://app.andru.de5.net/dl/passport.apk</a></p>
+<ul>
+<li>arm64 精简版（16MB，Android 5.0+ 64 位手机通用）</li>
+<li>备用地址：GitHub Release <code>AndruGuo/passport-device</code> v0.1.0（私有仓库需登录）</li>
+</ul>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><ol>
+<li>手机打开上面的下载链接，下载 APK</li>
+<li>点击安装 → 系统提示「未知来源」→ 去设置允许该来源「安装未知应用」</li>
+<li>安装完成，先打开一次 APP（暂时不要设为桌面）</li>
+</ol>
+<h2 id="首次验证"><a href="#首次验证" class="headerlink" title="首次验证"></a>首次验证</h2><p>打开 APP 后应能看到三个页面：</p>
+<ul>
+<li><strong>工牌页</strong>：黄色像素风身份卡（默认名 Andru、简介、首页短句）</li>
+<li><strong>游戏页</strong>：贪吃蛇——按「确定」开始，上/下键转向，游戏中按确定键右转冲刺</li>
+<li><strong>设置页</strong>：可编辑名称/简介/短句并保存，工牌页即时更新</li>
+</ul>
+<p>验证清单：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 三个页面都能正常显示</li>
+<li><input disabled="" type="checkbox"> 贪吃蛇能开始、转向、死后重来</li>
+<li><input disabled="" type="checkbox"> 设置页改名保存后工牌页同步更新</li>
+<li><input disabled="" type="checkbox"> APP 打开时屏幕常亮不熄屏</li>
+</ul>
+<h2 id="设备化（kiosk-模式）"><a href="#设备化（kiosk-模式）" class="headerlink" title="设备化（kiosk 模式）"></a>设备化（kiosk 模式）</h2><ol>
+<li>按「主页」键 → 系统弹出「选择桌面」→ 选 <strong>Passport Device</strong> → 点「始终」</li>
+<li>重启手机验证：开机应自动进入本 APP</li>
+<li>系统精简（手动完成，不刷机）：<ul>
+<li>设置 → 应用管理：无关预装 APP 逐个「停用」（可逆）</li>
+<li>设置 → 账号：关闭自动同步</li>
+<li>开发者选项：三个动画缩放设为 0</li>
+<li>勿扰模式常开、深色主题</li>
+</ul>
+</li>
+</ol>
+<h2 id="回到原桌面（随时可逆）"><a href="#回到原桌面（随时可逆）" class="headerlink" title="回到原桌面（随时可逆）"></a>回到原桌面（随时可逆）</h2><ul>
+<li>系统设置 → 应用管理 → Passport Device → 「默认打开」→ 清除默认设置</li>
+<li>再按主页键 → 弹出桌面选择器 → 选回原厂桌面</li>
+<li>原厂桌面从未被删除，随时可以切换回去</li>
+</ul>
+<h2 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装提示「解析失败」</td>
+<td>APK 下载不完整，重新下载</td>
+</tr>
+<tr>
+<td>按主页没弹选择器</td>
+<td>设置 → 应用 → 默认应用 → 主页应用 → 手动选 Passport Device</td>
+</tr>
+<tr>
+<td>开机没进 APP</td>
+<td>重启一次；检查自启动权限</td>
+</tr>
+<tr>
+<td>想卸载</td>
+<td>直接卸载，桌面自动回落原厂桌面</td>
+</tr>
+</tbody></table>
+<h2 id="技术信息"><a href="#技术信息" class="headerlink" title="技术信息"></a>技术信息</h2><ul>
+<li>Flutter 构建的 kiosk 应用，minSdk 21（Android 5.0+），目标机 Android 9 ✅</li>
+<li>注册 HOME 桌面 + BOOT_COMPLETED 开机自启，无 root，完全可逆</li>
+<li>屏幕常亮（wakelock）+ 沉浸式全屏 + 竖屏锁定</li>
+<li>源码：GitHub 私有仓库 <code>AndruGuo/passport-device</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>折腾</tag>
+        <tag>安卓</tag>
+        <tag>Flutter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为什么 AI 选择了 Markdown，而不是其他文件格式</title>
+    <url>/%E6%8A%80%E6%9C%AF/2026112801/</url>
+    <content><![CDATA[<p>如果你留意过 AI 生成的文档、开源项目的 README、各种大模型的知识库，会发现一个共同点：它们几乎都用 Markdown（.md 文件）。不是 Word，不是 PDF，不是 HTML，甚至不是纯文本。为什么偏偏是 Markdown？这不是巧合，而是多个维度的比较之后，Markdown 成了 AI 时代最合适的“通用语言”。</p>
+<span id="more"></span>
+
+<h2 id="一、它首先是纯文本：人和机器都能直接读"><a href="#一、它首先是纯文本：人和机器都能直接读" class="headerlink" title="一、它首先是纯文本：人和机器都能直接读"></a>一、它首先是纯文本：人和机器都能直接读</h2><p>Markdown 的本质是纯文本文件。打开它不需要任何专用软件，记事本就能看，Git 能直接 diff，grep 能直接搜。</p>
+<p>这对 AI 来说至关重要。AI 处理内容的第一步是把文件读成字符流。Word 的 .docx 其实是个压缩包，里面是一堆 XML；PDF 是排版指令和二进制的混合体；想从中提取正文，AI 得先解压、解析、还原，中间任何一步出错都会丢内容、乱顺序。而 Markdown 没有这层障碍——看到什么就是什么，零解码成本，零信息损耗。</p>
+<p><strong>对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>AI 读取成本</th>
+<th>是否无损</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Markdown</td>
+<td>直接读</td>
+<td>是</td>
+</tr>
+<tr>
+<td>纯文本 .txt</td>
+<td>直接读</td>
+<td>是，但无结构</td>
+</tr>
+<tr>
+<td>Word .docx</td>
+<td>需解压解析 XML</td>
+<td>常丢格式、错顺序</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>需解析排版指令</td>
+<td>常丢表格、乱换行</td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>需解析标签树</td>
+<td>标签噪音大</td>
+</tr>
+</tbody></table>
+<p>纯文本是 AI 的母语，而 Markdown 是“带结构的纯文本”——这正是它胜过 .txt 的地方。</p>
+<h2 id="二、结构刚好够用：比-txt-多一点，比-HTML-少很多"><a href="#二、结构刚好够用：比-txt-多一点，比-HTML-少很多" class="headerlink" title="二、结构刚好够用：比 txt 多一点，比 HTML 少很多"></a>二、结构刚好够用：比 txt 多一点，比 HTML 少很多</h2><p>AI 理解一篇文章，靠的是结构：哪里是标题、哪里是列表、哪里是代码、哪句是引用。Markdown 用最少的符号表达了这些结构：</p>
+<ul>
+<li><code>#</code> 是标题，层级一目了然</li>
+<li><code>-</code> 是列表，层级关系清晰</li>
+<li><code>```</code> 是代码块，语言还能标注</li>
+<li><code>&gt;</code> 是引用，<code>** **</code> 是强调</li>
+<li><code>[文字](链接)</code> 是超链接</li>
+</ul>
+<p>这些标记同时满足了三方需求：人眼看着舒服、编辑器能渲染、AI 解析起来毫不费力。反观 HTML，表达同样一个标题要写 <code>&lt;h1&gt;标题&lt;/h1&gt;</code>，标签比内容还多；表达一个表格更是一大坨 <code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;</code>。这些标签对 AI 来说全是噪音——占 token、扰乱语义、还容易在生成时配对出错。</p>
+<p>而纯文本 .txt 则走向了另一个极端：没有任何结构标记。标题和正文长得一样，列表和段落分不清，AI 只能靠猜。Markdown 恰好站在中间点：结构刚好够用，噪音几乎为零。</p>
+<h2 id="三、Token-经济学：同样的内容，Markdown-最省钱"><a href="#三、Token-经济学：同样的内容，Markdown-最省钱" class="headerlink" title="三、Token 经济学：同样的内容，Markdown 最省钱"></a>三、Token 经济学：同样的内容，Markdown 最省钱</h2><p>大模型按 token 计费、按 token 限制上下文。格式的“啰嗦程度”直接决定成本。</p>
+<p>同样一段带标题、列表和代码的内容：</p>
+<ul>
+<li>Markdown 版：标记只占内容的大约 5%~10%</li>
+<li>HTML 版：标签常常占到 30%~50%，表格更是翻倍</li>
+<li>Word 转出来的 XML：标记能比正文还多几倍</li>
+<li>JSON 版：引号、逗号、括号层层嵌套，结构信息占比更高</li>
+</ul>
+<p>AI 每次读写文档都要为这些标记付 token。Markdown 的标记密度是所有富格式里最低的，等于用最少的钱传递最多的信息。而且因为语法极其简单，AI 生成时几乎不会写错；写 HTML 却很容易漏一个闭合标签，整个结构就崩了。</p>
+<h2 id="四、版本控制友好：diff-能看懂，协作才成立"><a href="#四、版本控制友好：diff-能看懂，协作才成立" class="headerlink" title="四、版本控制友好：diff 能看懂，协作才成立"></a>四、版本控制友好：diff 能看懂，协作才成立</h2><p>AI 写东西不是一锤子买卖，而是反复改：改一段、补一句、调结构。这就离不开 Git 这样的版本控制。</p>
+<p>Markdown 是按行组织的纯文本，改一行，diff 就只显示那一行，review 的人一眼看懂改了什么。Word 是二进制，diff 只能告诉你“文件变了”，具体改了哪句话完全看不出来；PDF 更不用说。AI 时代的写作大量发生在 GitHub、GitLab 和各种协作文档里，Markdown 是唯一能让“AI 改完、人能审、历史能查”同时成立的格式。</p>
+<p>这也是为什么几乎所有开源项目都用 Markdown 写文档：README、贡献指南、变更日志，全是 .md。</p>
+<h2 id="五、生态惯性：AI-是在-Markdown-的海洋里长大的"><a href="#五、生态惯性：AI-是在-Markdown-的海洋里长大的" class="headerlink" title="五、生态惯性：AI 是在 Markdown 的海洋里长大的"></a>五、生态惯性：AI 是在 Markdown 的海洋里长大的</h2><p>还有一个常被忽略的原因：大模型的训练语料里，Markdown 无处不在。</p>
+<p>GitHub 上数以亿计的 README 和文档是 Markdown；Stack Overflow、技术博客、官方文档大量使用 Markdown；很多数据集、评测集、提示词模板本身就是 Markdown 写的。AI 在训练中见过最多的结构化文本就是 Markdown，于是它写 Markdown 最熟练、最不容易出错——这是一种自我强化的循环：用得越多，模型越擅长；越擅长，就越多人用。</p>
+<p>相比之下，reStructuredText（.rst）语法更强大，但在 Python 生态之外很少见；AsciiDoc 功能更全，但学习曲线陡、语料少；Org Mode 很强，但基本只活在 Emacs 用户手里。它们输给 Markdown 的不是功能，而是生态规模。</p>
+<h2 id="六、可移植与不过时：五十年后还能打开"><a href="#六、可移植与不过时：五十年后还能打开" class="headerlink" title="六、可移植与不过时：五十年后还能打开"></a>六、可移植与不过时：五十年后还能打开</h2><p>Markdown 没有厂商、没有专利、不依赖任何软件。它就是带几个符号的文本文件。</p>
+<p>Word 格式换过好几代，老 .doc 用新软件打开都会走样；Notion、飞书文档、Google Docs 的内容锁在平台里，导出一次丢一次格式；PDF 倒是稳定，但它是“写死”的排版结果，改起来极其痛苦。Markdown 写于 2004 年，二十多年过去，语法几乎没变过，任何一个文本编辑器都能打开，任何一门语言都有解析库。</p>
+<p>对 AI 来说，这意味着知识可以长期沉淀：今天生成的 Markdown 笔记、文档、博客，十年后不需要任何迁移就能继续用、继续被更新的模型读懂。</p>
+<h2 id="七、生成友好：AI-写-Markdown-几乎不犯错"><a href="#七、生成友好：AI-写-Markdown-几乎不犯错" class="headerlink" title="七、生成友好：AI 写 Markdown 几乎不犯错"></a>七、生成友好：AI 写 Markdown 几乎不犯错</h2><p>最后一点很实际：Markdown 对生成式 AI 特别友好。</p>
+<ul>
+<li>语法只有十几个符号，模型几乎不会写错；</li>
+<li>不需要配对闭合标签，没有 HTML 那种“一处错、全篇崩”的风险；</li>
+<li>格式和内容可以一遍生成，不用先写内容再套样式；</li>
+<li>出错也容易修：少一个 <code>#</code> 只是少一级标题，不会破坏全文。</li>
+</ul>
+<p>而让 AI 直接生成 Word 或 PDF，等于让它在写文章的同时还要当排版引擎——字体、页边距、分页符，错一个就全乱。正确的做法永远是：AI 写 Markdown，需要时再由工具转成 Word、PDF 或网页。Markdown 是“源格式”，其他格式是“输出格式”。</p>
+<h2 id="一张表总结"><a href="#一张表总结" class="headerlink" title="一张表总结"></a>一张表总结</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Markdown</th>
+<th>Word</th>
+<th>PDF</th>
+<th>HTML</th>
+<th>纯文本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>人可读</td>
+<td>好</td>
+<td>好</td>
+<td>好</td>
+<td>差</td>
+<td>好</td>
+</tr>
+<tr>
+<td>机器可读</td>
+<td>极好</td>
+<td>差</td>
+<td>差</td>
+<td>中</td>
+<td>好</td>
+</tr>
+<tr>
+<td>结构表达</td>
+<td>够用</td>
+<td>强</td>
+<td>弱</td>
+<td>强</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Token 效率</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+<td>低</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>Git diff</td>
+<td>清晰</td>
+<td>不可用</td>
+<td>不可用</td>
+<td>尚可</td>
+<td>清晰</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>完全</td>
+<td>依赖软件</td>
+<td>只读为主</td>
+<td>需浏览器</td>
+<td>完全</td>
+</tr>
+<tr>
+<td>生成容错</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>生态规模</td>
+<td>巨大</td>
+<td>大</td>
+<td>大</td>
+<td>巨大</td>
+<td>小</td>
+</tr>
+</tbody></table>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>AI 选择 Markdown，不是因为它功能最强——论排版它不如 Word，论表现力它不如 HTML，论严谨它不如 LaTeX。而是因为它在所有关键维度上都拿到了“足够好”，同时在成本、简洁性和通用性上无人能及。</p>
+<p>它像一张白纸，只多了几道折痕：不多不少，刚好让机器和人都知道哪里该分段、哪里是重点。在 AI 成为主要内容生产者的今天，这种“对人和机器都友好”的格式，注定是默认选项。</p>
+<p>下次当你让 AI 写点什么，不妨直接说一句：用 Markdown 写。它本来就想这么干。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一篇文章</title>
+    <url>/%E6%9D%82%E8%B0%88/first-post/</url>
+    <content><![CDATA[<p>这是我的第一篇文章！</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>Life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/%E6%8A%80%E6%9C%AF/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>. <span id="more"></span></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tech</tag>
+      </tags>
+  </entry>
+</search>

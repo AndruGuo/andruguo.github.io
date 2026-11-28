@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.andru.de5.net","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="如果你留意过 AI 生成的文档、开源项目的 README、各种大模型的知识库，会发现一个共同点：它们几乎都用 Markdown（.md 文件）。不是 Word，不是 PDF，不是 HTML，甚至不是纯文本。为什么偏偏是 Markdown？这不是巧合，而是多个维度的比较之后，Markdown 成了 AI 时代最合适的“通用语言”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么 AI 选择了 Markdown，而不是其他文件格式">
+<meta property="og:url" content="https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112801/index.html">
+<meta property="og:site_name" content="Andru.Live">
+<meta property="og:description" content="如果你留意过 AI 生成的文档、开源项目的 README、各种大模型的知识库，会发现一个共同点：它们几乎都用 Markdown（.md 文件）。不是 Word，不是 PDF，不是 HTML，甚至不是纯文本。为什么偏偏是 Markdown？这不是巧合，而是多个维度的比较之后，Markdown 成了 AI 时代最合适的“通用语言”。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-28T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-28T13:01:02.829Z">
+<meta property="article:author" content="Andru">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Markdown">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112801/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112801/","path":"技术/2026112801/","title":"为什么 AI 选择了 Markdown，而不是其他文件格式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>为什么 AI 选择了 Markdown，而不是其他文件格式 | Andru.Live</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Andru.Live" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Andru.Live</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录、分享、交流</p>
+  </div>
+
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
+      <i class="fa fa-ellipsis fa-fw fa-lg"></i>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div></template>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%83%E9%A6%96%E5%85%88%E6%98%AF%E7%BA%AF%E6%96%87%E6%9C%AC%EF%BC%9A%E4%BA%BA%E5%92%8C%E6%9C%BA%E5%99%A8%E9%83%BD%E8%83%BD%E7%9B%B4%E6%8E%A5%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">一、它首先是纯文本：人和机器都能直接读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BB%93%E6%9E%84%E5%88%9A%E5%A5%BD%E5%A4%9F%E7%94%A8%EF%BC%9A%E6%AF%94-txt-%E5%A4%9A%E4%B8%80%E7%82%B9%EF%BC%8C%E6%AF%94-HTML-%E5%B0%91%E5%BE%88%E5%A4%9A"><span class="nav-number">2.</span> <span class="nav-text">二、结构刚好够用：比 txt 多一点，比 HTML 少很多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Token-%E7%BB%8F%E6%B5%8E%E5%AD%A6%EF%BC%9A%E5%90%8C%E6%A0%B7%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8CMarkdown-%E6%9C%80%E7%9C%81%E9%92%B1"><span class="nav-number">3.</span> <span class="nav-text">三、Token 经济学：同样的内容，Markdown 最省钱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%8F%8B%E5%A5%BD%EF%BC%9Adiff-%E8%83%BD%E7%9C%8B%E6%87%82%EF%BC%8C%E5%8D%8F%E4%BD%9C%E6%89%8D%E6%88%90%E7%AB%8B"><span class="nav-number">4.</span> <span class="nav-text">四、版本控制友好：diff 能看懂，协作才成立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%94%9F%E6%80%81%E6%83%AF%E6%80%A7%EF%BC%9AAI-%E6%98%AF%E5%9C%A8-Markdown-%E7%9A%84%E6%B5%B7%E6%B4%8B%E9%87%8C%E9%95%BF%E5%A4%A7%E7%9A%84"><span class="nav-number">5.</span> <span class="nav-text">五、生态惯性：AI 是在 Markdown 的海洋里长大的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%8F%AF%E7%A7%BB%E6%A4%8D%E4%B8%8E%E4%B8%8D%E8%BF%87%E6%97%B6%EF%BC%9A%E4%BA%94%E5%8D%81%E5%B9%B4%E5%90%8E%E8%BF%98%E8%83%BD%E6%89%93%E5%BC%80"><span class="nav-number">6.</span> <span class="nav-text">六、可移植与不过时：五十年后还能打开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%94%9F%E6%88%90%E5%8F%8B%E5%A5%BD%EF%BC%9AAI-%E5%86%99-Markdown-%E5%87%A0%E4%B9%8E%E4%B8%8D%E7%8A%AF%E9%94%99"><span class="nav-number">7.</span> <span class="nav-text">七、生成友好：AI 写 Markdown 几乎不犯错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%BC%A0%E8%A1%A8%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">一张表总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">9.</span> <span class="nav-text">结语</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Andru</p>
+  <div class="site-description" itemprop="description"> 日拱一卒，功不唐捐 </div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112801/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andru">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andru.Live">
+      <meta itemprop="description" content=" 日拱一卒，功不唐捐 ">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="为什么 AI 选择了 Markdown，而不是其他文件格式 | Andru.Live">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么 AI 选择了 Markdown，而不是其他文件格式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-28 15:00:00 / 修改时间：21:01:02" itemprop="dateCreated datePublished" datetime="2026-11-28T15:00:00+08:00">2026-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-lines"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>如果你留意过 AI 生成的文档、开源项目的 README、各种大模型的知识库，会发现一个共同点：它们几乎都用 Markdown（.md 文件）。不是 Word，不是 PDF，不是 HTML，甚至不是纯文本。为什么偏偏是 Markdown？这不是巧合，而是多个维度的比较之后，Markdown 成了 AI 时代最合适的“通用语言”。</p>
+<span id="more"></span>
+
+<h2 id="一、它首先是纯文本：人和机器都能直接读"><a href="#一、它首先是纯文本：人和机器都能直接读" class="headerlink" title="一、它首先是纯文本：人和机器都能直接读"></a>一、它首先是纯文本：人和机器都能直接读</h2><p>Markdown 的本质是纯文本文件。打开它不需要任何专用软件，记事本就能看，Git 能直接 diff，grep 能直接搜。</p>
+<p>这对 AI 来说至关重要。AI 处理内容的第一步是把文件读成字符流。Word 的 .docx 其实是个压缩包，里面是一堆 XML；PDF 是排版指令和二进制的混合体；想从中提取正文，AI 得先解压、解析、还原，中间任何一步出错都会丢内容、乱顺序。而 Markdown 没有这层障碍——看到什么就是什么，零解码成本，零信息损耗。</p>
+<p><strong>对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>AI 读取成本</th>
+<th>是否无损</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Markdown</td>
+<td>直接读</td>
+<td>是</td>
+</tr>
+<tr>
+<td>纯文本 .txt</td>
+<td>直接读</td>
+<td>是，但无结构</td>
+</tr>
+<tr>
+<td>Word .docx</td>
+<td>需解压解析 XML</td>
+<td>常丢格式、错顺序</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>需解析排版指令</td>
+<td>常丢表格、乱换行</td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>需解析标签树</td>
+<td>标签噪音大</td>
+</tr>
+</tbody></table>
+<p>纯文本是 AI 的母语，而 Markdown 是“带结构的纯文本”——这正是它胜过 .txt 的地方。</p>
+<h2 id="二、结构刚好够用：比-txt-多一点，比-HTML-少很多"><a href="#二、结构刚好够用：比-txt-多一点，比-HTML-少很多" class="headerlink" title="二、结构刚好够用：比 txt 多一点，比 HTML 少很多"></a>二、结构刚好够用：比 txt 多一点，比 HTML 少很多</h2><p>AI 理解一篇文章，靠的是结构：哪里是标题、哪里是列表、哪里是代码、哪句是引用。Markdown 用最少的符号表达了这些结构：</p>
+<ul>
+<li><code>#</code> 是标题，层级一目了然</li>
+<li><code>-</code> 是列表，层级关系清晰</li>
+<li><code>```</code> 是代码块，语言还能标注</li>
+<li><code>&gt;</code> 是引用，<code>** **</code> 是强调</li>
+<li><code>[文字](链接)</code> 是超链接</li>
+</ul>
+<p>这些标记同时满足了三方需求：人眼看着舒服、编辑器能渲染、AI 解析起来毫不费力。反观 HTML，表达同样一个标题要写 <code>&lt;h1&gt;标题&lt;/h1&gt;</code>，标签比内容还多；表达一个表格更是一大坨 <code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;</code>。这些标签对 AI 来说全是噪音——占 token、扰乱语义、还容易在生成时配对出错。</p>
+<p>而纯文本 .txt 则走向了另一个极端：没有任何结构标记。标题和正文长得一样，列表和段落分不清，AI 只能靠猜。Markdown 恰好站在中间点：结构刚好够用，噪音几乎为零。</p>
+<h2 id="三、Token-经济学：同样的内容，Markdown-最省钱"><a href="#三、Token-经济学：同样的内容，Markdown-最省钱" class="headerlink" title="三、Token 经济学：同样的内容，Markdown 最省钱"></a>三、Token 经济学：同样的内容，Markdown 最省钱</h2><p>大模型按 token 计费、按 token 限制上下文。格式的“啰嗦程度”直接决定成本。</p>
+<p>同样一段带标题、列表和代码的内容：</p>
+<ul>
+<li>Markdown 版：标记只占内容的大约 5%~10%</li>
+<li>HTML 版：标签常常占到 30%~50%，表格更是翻倍</li>
+<li>Word 转出来的 XML：标记能比正文还多几倍</li>
+<li>JSON 版：引号、逗号、括号层层嵌套，结构信息占比更高</li>
+</ul>
+<p>AI 每次读写文档都要为这些标记付 token。Markdown 的标记密度是所有富格式里最低的，等于用最少的钱传递最多的信息。而且因为语法极其简单，AI 生成时几乎不会写错；写 HTML 却很容易漏一个闭合标签，整个结构就崩了。</p>
+<h2 id="四、版本控制友好：diff-能看懂，协作才成立"><a href="#四、版本控制友好：diff-能看懂，协作才成立" class="headerlink" title="四、版本控制友好：diff 能看懂，协作才成立"></a>四、版本控制友好：diff 能看懂，协作才成立</h2><p>AI 写东西不是一锤子买卖，而是反复改：改一段、补一句、调结构。这就离不开 Git 这样的版本控制。</p>
+<p>Markdown 是按行组织的纯文本，改一行，diff 就只显示那一行，review 的人一眼看懂改了什么。Word 是二进制，diff 只能告诉你“文件变了”，具体改了哪句话完全看不出来；PDF 更不用说。AI 时代的写作大量发生在 GitHub、GitLab 和各种协作文档里，Markdown 是唯一能让“AI 改完、人能审、历史能查”同时成立的格式。</p>
+<p>这也是为什么几乎所有开源项目都用 Markdown 写文档：README、贡献指南、变更日志，全是 .md。</p>
+<h2 id="五、生态惯性：AI-是在-Markdown-的海洋里长大的"><a href="#五、生态惯性：AI-是在-Markdown-的海洋里长大的" class="headerlink" title="五、生态惯性：AI 是在 Markdown 的海洋里长大的"></a>五、生态惯性：AI 是在 Markdown 的海洋里长大的</h2><p>还有一个常被忽略的原因：大模型的训练语料里，Markdown 无处不在。</p>
+<p>GitHub 上数以亿计的 README 和文档是 Markdown；Stack Overflow、技术博客、官方文档大量使用 Markdown；很多数据集、评测集、提示词模板本身就是 Markdown 写的。AI 在训练中见过最多的结构化文本就是 Markdown，于是它写 Markdown 最熟练、最不容易出错——这是一种自我强化的循环：用得越多，模型越擅长；越擅长，就越多人用。</p>
+<p>相比之下，reStructuredText（.rst）语法更强大，但在 Python 生态之外很少见；AsciiDoc 功能更全，但学习曲线陡、语料少；Org Mode 很强，但基本只活在 Emacs 用户手里。它们输给 Markdown 的不是功能，而是生态规模。</p>
+<h2 id="六、可移植与不过时：五十年后还能打开"><a href="#六、可移植与不过时：五十年后还能打开" class="headerlink" title="六、可移植与不过时：五十年后还能打开"></a>六、可移植与不过时：五十年后还能打开</h2><p>Markdown 没有厂商、没有专利、不依赖任何软件。它就是带几个符号的文本文件。</p>
+<p>Word 格式换过好几代，老 .doc 用新软件打开都会走样；Notion、飞书文档、Google Docs 的内容锁在平台里，导出一次丢一次格式；PDF 倒是稳定，但它是“写死”的排版结果，改起来极其痛苦。Markdown 写于 2004 年，二十多年过去，语法几乎没变过，任何一个文本编辑器都能打开，任何一门语言都有解析库。</p>
+<p>对 AI 来说，这意味着知识可以长期沉淀：今天生成的 Markdown 笔记、文档、博客，十年后不需要任何迁移就能继续用、继续被更新的模型读懂。</p>
+<h2 id="七、生成友好：AI-写-Markdown-几乎不犯错"><a href="#七、生成友好：AI-写-Markdown-几乎不犯错" class="headerlink" title="七、生成友好：AI 写 Markdown 几乎不犯错"></a>七、生成友好：AI 写 Markdown 几乎不犯错</h2><p>最后一点很实际：Markdown 对生成式 AI 特别友好。</p>
+<ul>
+<li>语法只有十几个符号，模型几乎不会写错；</li>
+<li>不需要配对闭合标签，没有 HTML 那种“一处错、全篇崩”的风险；</li>
+<li>格式和内容可以一遍生成，不用先写内容再套样式；</li>
+<li>出错也容易修：少一个 <code>#</code> 只是少一级标题，不会破坏全文。</li>
+</ul>
+<p>而让 AI 直接生成 Word 或 PDF，等于让它在写文章的同时还要当排版引擎——字体、页边距、分页符，错一个就全乱。正确的做法永远是：AI 写 Markdown，需要时再由工具转成 Word、PDF 或网页。Markdown 是“源格式”，其他格式是“输出格式”。</p>
+<h2 id="一张表总结"><a href="#一张表总结" class="headerlink" title="一张表总结"></a>一张表总结</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Markdown</th>
+<th>Word</th>
+<th>PDF</th>
+<th>HTML</th>
+<th>纯文本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>人可读</td>
+<td>好</td>
+<td>好</td>
+<td>好</td>
+<td>差</td>
+<td>好</td>
+</tr>
+<tr>
+<td>机器可读</td>
+<td>极好</td>
+<td>差</td>
+<td>差</td>
+<td>中</td>
+<td>好</td>
+</tr>
+<tr>
+<td>结构表达</td>
+<td>够用</td>
+<td>强</td>
+<td>弱</td>
+<td>强</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Token 效率</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+<td>低</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>Git diff</td>
+<td>清晰</td>
+<td>不可用</td>
+<td>不可用</td>
+<td>尚可</td>
+<td>清晰</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>完全</td>
+<td>依赖软件</td>
+<td>只读为主</td>
+<td>需浏览器</td>
+<td>完全</td>
+</tr>
+<tr>
+<td>生成容错</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>生态规模</td>
+<td>巨大</td>
+<td>大</td>
+<td>大</td>
+<td>巨大</td>
+<td>小</td>
+</tr>
+</tbody></table>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>AI 选择 Markdown，不是因为它功能最强——论排版它不如 Word，论表现力它不如 HTML，论严谨它不如 LaTeX。而是因为它在所有关键维度上都拿到了“足够好”，同时在成本、简洁性和通用性上无人能及。</p>
+<p>它像一张白纸，只多了几道折痕：不多不少，刚好让机器和人都知道哪里该分段、哪里是重点。在 AI 成为主要内容生产者的今天，这种“对人和机器都友好”的格式，注定是默认选项。</p>
+<p>下次当你让 AI 写点什么，不妨直接说一句：用 Markdown 写。它本来就想这么干。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/Markdown/" rel="tag"># Markdown</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%8A%80%E6%9C%AF/2026112401/" rel="prev" title="Passport Device 安装指引：旧手机秒变专用设备">
+                  <i class="fa fa-angle-left"></i> Passport Device 安装指引：旧手机秒变专用设备
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Andru</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">9k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8 分钟</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

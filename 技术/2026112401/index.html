@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha256-4Lad8m4ZWW1Lgb9+sMVLYEfnIh7BjV1NQMEe79Pviks=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.andru.de5.net","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.29.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="这是《把废旧安卓手机变成专用设备》一文的配套安装指引。APK 下载与安装步骤全在下面，AI 助手可按本文档逐步执行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Passport Device 安装指引：旧手机秒变专用设备">
+<meta property="og:url" content="https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112401/index.html">
+<meta property="og:site_name" content="Andru.Live">
+<meta property="og:description" content="这是《把废旧安卓手机变成专用设备》一文的配套安装指引。APK 下载与安装步骤全在下面，AI 助手可按本文档逐步执行。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-24T13:40:00.000Z">
+<meta property="article:modified_time" content="2026-11-26T14:42:23.826Z">
+<meta property="article:author" content="Andru">
+<meta property="article:tag" content="折腾">
+<meta property="article:tag" content="安卓">
+<meta property="article:tag" content="Flutter">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112401/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112401/","path":"技术/2026112401/","title":"Passport Device 安装指引：旧手机秒变专用设备"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Passport Device 安装指引：旧手机秒变专用设备 | Andru.Live</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Andru.Live" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-search popup-trigger" aria-label="搜索" role="button">
+      <i class="fa fa-search fa-fw fa-lg"></i>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Andru.Live</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录、分享、交流</p>
+  </div>
+
+  <div class="site-nav-toggle" aria-label="切换导航栏" role="button">
+      <i class="fa fa-ellipsis fa-fw fa-lg"></i>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  
+  <template id="search-popup-template"><div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div></template>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-APK"><span class="nav-number">1.</span> <span class="nav-text">下载 APK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E6%AC%A1%E9%AA%8C%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">首次验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E5%8C%96%EF%BC%88kiosk-%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">设备化（kiosk 模式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0%E5%8E%9F%E6%A1%8C%E9%9D%A2%EF%BC%88%E9%9A%8F%E6%97%B6%E5%8F%AF%E9%80%86%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">回到原桌面（随时可逆）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5"><span class="nav-number">6.</span> <span class="nav-text">故障排查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E4%BF%A1%E6%81%AF"><span class="nav-number">7.</span> <span class="nav-text">技术信息</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Andru</p>
+  <div class="site-description" itemprop="description"> 日拱一卒，功不唐捐 </div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.andru.de5.net/%E6%8A%80%E6%9C%AF/2026112401/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Andru">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andru.Live">
+      <meta itemprop="description" content=" 日拱一卒，功不唐捐 ">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Passport Device 安装指引：旧手机秒变专用设备 | Andru.Live">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Passport Device 安装指引：旧手机秒变专用设备
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-11-24 21:40:00" itemprop="dateCreated datePublished" datetime="2026-11-24T21:40:00+08:00">2026-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-11-26 22:42:23" itemprop="dateModified" datetime="2026-11-26T22:42:23+08:00">2026-11-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-lines"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>939</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这是《把废旧安卓手机变成专用设备》一文的配套安装指引。APK 下载与安装步骤全在下面，AI 助手可按本文档逐步执行。</p>
+<span id="more"></span>
+
+<h2 id="下载-APK"><a href="#下载-APK" class="headerlink" title="下载 APK"></a>下载 APK</h2><p><strong>下载地址</strong>：<a target="_blank" rel="noopener" href="https://app.andru.de5.net/dl/passport.apk">https://app.andru.de5.net/dl/passport.apk</a></p>
+<ul>
+<li>arm64 精简版（16MB，Android 5.0+ 64 位手机通用）</li>
+<li>备用地址：GitHub Release <code>AndruGuo/passport-device</code> v0.1.0（私有仓库需登录）</li>
+</ul>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><ol>
+<li>手机打开上面的下载链接，下载 APK</li>
+<li>点击安装 → 系统提示「未知来源」→ 去设置允许该来源「安装未知应用」</li>
+<li>安装完成，先打开一次 APP（暂时不要设为桌面）</li>
+</ol>
+<h2 id="首次验证"><a href="#首次验证" class="headerlink" title="首次验证"></a>首次验证</h2><p>打开 APP 后应能看到三个页面：</p>
+<ul>
+<li><strong>工牌页</strong>：黄色像素风身份卡（默认名 Andru、简介、首页短句）</li>
+<li><strong>游戏页</strong>：贪吃蛇——按「确定」开始，上/下键转向，游戏中按确定键右转冲刺</li>
+<li><strong>设置页</strong>：可编辑名称/简介/短句并保存，工牌页即时更新</li>
+</ul>
+<p>验证清单：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 三个页面都能正常显示</li>
+<li><input disabled="" type="checkbox"> 贪吃蛇能开始、转向、死后重来</li>
+<li><input disabled="" type="checkbox"> 设置页改名保存后工牌页同步更新</li>
+<li><input disabled="" type="checkbox"> APP 打开时屏幕常亮不熄屏</li>
+</ul>
+<h2 id="设备化（kiosk-模式）"><a href="#设备化（kiosk-模式）" class="headerlink" title="设备化（kiosk 模式）"></a>设备化（kiosk 模式）</h2><ol>
+<li>按「主页」键 → 系统弹出「选择桌面」→ 选 <strong>Passport Device</strong> → 点「始终」</li>
+<li>重启手机验证：开机应自动进入本 APP</li>
+<li>系统精简（手动完成，不刷机）：<ul>
+<li>设置 → 应用管理：无关预装 APP 逐个「停用」（可逆）</li>
+<li>设置 → 账号：关闭自动同步</li>
+<li>开发者选项：三个动画缩放设为 0</li>
+<li>勿扰模式常开、深色主题</li>
+</ul>
+</li>
+</ol>
+<h2 id="回到原桌面（随时可逆）"><a href="#回到原桌面（随时可逆）" class="headerlink" title="回到原桌面（随时可逆）"></a>回到原桌面（随时可逆）</h2><ul>
+<li>系统设置 → 应用管理 → Passport Device → 「默认打开」→ 清除默认设置</li>
+<li>再按主页键 → 弹出桌面选择器 → 选回原厂桌面</li>
+<li>原厂桌面从未被删除，随时可以切换回去</li>
+</ul>
+<h2 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装提示「解析失败」</td>
+<td>APK 下载不完整，重新下载</td>
+</tr>
+<tr>
+<td>按主页没弹选择器</td>
+<td>设置 → 应用 → 默认应用 → 主页应用 → 手动选 Passport Device</td>
+</tr>
+<tr>
+<td>开机没进 APP</td>
+<td>重启一次；检查自启动权限</td>
+</tr>
+<tr>
+<td>想卸载</td>
+<td>直接卸载，桌面自动回落原厂桌面</td>
+</tr>
+</tbody></table>
+<h2 id="技术信息"><a href="#技术信息" class="headerlink" title="技术信息"></a>技术信息</h2><ul>
+<li>Flutter 构建的 kiosk 应用，minSdk 21（Android 5.0+），目标机 Android 9 ✅</li>
+<li>注册 HOME 桌面 + BOOT_COMPLETED 开机自启，无 root，完全可逆</li>
+<li>屏幕常亮（wakelock）+ 沉浸式全屏 + 竖屏锁定</li>
+<li>源码：GitHub 私有仓库 <code>AndruGuo/passport-device</code></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+              <a href="/tags/%E5%AE%89%E5%8D%93/" rel="tag"># 安卓</a>
+              <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%8A%98%E8%85%BE/2026112301/" rel="prev" title="把废旧安卓手机变成专用设备：一台零成本的 AI Passport">
+                  <i class="fa fa-angle-left"></i> 把废旧安卓手机变成专用设备：一台零成本的 AI Passport
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%8A%80%E6%9C%AF/2026112801/" rel="next" title="为什么 AI 选择了 Markdown，而不是其他文件格式">
+                  为什么 AI 选择了 Markdown，而不是其他文件格式 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Andru</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">9k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8 分钟</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
